@@ -19,6 +19,7 @@ void setup()
   pinMode(sw2,INPUT);
   Serial.begin(9600);
   dht.begin();
+  Serial.begin(115200);
 }
 void loop()
 {
