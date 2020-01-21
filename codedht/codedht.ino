@@ -7,9 +7,9 @@
 DHT dht(pin_DHT,DHTTYPE);
 int buttonstate1 =0;
 int buttonstate2=0;
-int temp_max=25;
+int temp_max=40;
 unsigned long previousMillis=0;
- long interval=10000;
+long interval=10000;
 int temperature;
 
 void setup()
@@ -23,10 +23,16 @@ void setup()
 }
 void loop()
 {
+        temperature=dht.readTemperature();
+        Serial.println((int)temperature);
+         Serial.print("*c , ");
+  
     unsigned long currentMillis=millis();
     if(currentMillis-previousMillis>=interval)
      {
         temperature=dht.readTemperature();
+        Serial.println((int)temperature);
+         Serial.print("*c , ");
         previousMillis=currentMillis;
       } 
        buttonstate1=digitalRead(sw1);
@@ -52,12 +58,12 @@ void loop()
        if(temperature>=temp_max)
         {
          //  poweroff relay();
-         digitalWrite(relay,LOW);
+         digitalWrite(relay,HIGH);
          }
        else
        {
         // poweron relay();
-         digitalWrite(relay,HIGH);
+         digitalWrite(relay,LOW);
        }
       delay(1000);
 }
